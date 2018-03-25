@@ -1,5 +1,6 @@
-package com.xy.jtools.utils;
+package com.xy.jtools.json;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,15 +11,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * alibaba fastjson utils
  */
+@Slf4j
 public class FastJsonUtils {
 	
-	/**
-     * logger
-     */
-    private static Logger logger = LoggerFactory.getLogger(FastJsonUtils.class);
+    private FastJsonUtils(){
+    }
 	
 	/**
 	 * 对象转json字符串
@@ -33,7 +35,7 @@ public class FastJsonUtils {
 			}
 			return JSONObject.toJSONString(object);
 		} catch (Exception e) {
-			logger.error("toJSONString error：", e);
+			log.error("toJSONString error：", e);
 			return null;
 		}
 	}
@@ -48,12 +50,12 @@ public class FastJsonUtils {
     public static <T> List<T> parseArray(String text, Class<T> clazz) {
     	try {
     		if (StringUtils.isEmpty(text) || null == clazz) {
-    			return null;
+    			return Collections.emptyList();
     		}
     		return JSONObject.parseArray(text, clazz);
 		} catch (Exception e) {
-			logger.error("parseArray error：", e);
-			return null;
+			log.error("parseArray error：", e);
+			return Collections.emptyList();
 		}
     }  
   
@@ -71,7 +73,7 @@ public class FastJsonUtils {
 			}
 			return JSONObject.parseObject(text, clazz);
 		} catch (Exception e) {
-			logger.error("parseObject error：", e);
+			log.error("parseObject error：", e);
 			return null;
 		}
 	}
@@ -90,7 +92,7 @@ public class FastJsonUtils {
 			}
 			return JSONObject.parseObject(text, typeReference);
 		} catch (Exception e) {
-			logger.error("parseObject error：", e);
+			log.error("parseObject error：", e);
 			return null;
 		}
 	}
@@ -110,7 +112,7 @@ public class FastJsonUtils {
 			}
 			return JSONObject.parseObject(text, typeReference, features);
 		} catch (Exception e) {
-			logger.error("parseObject error：", e);
+			log.error("parseObject error：", e);
 			return null;
 		}
 	}
